@@ -1,693 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eromosele Israel | Full Stack Developer</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg-primary: #f8f9fa;
-      --bg-secondary: #ffffff;
-      --text-primary: #333;
-      --text-secondary: #555;
-      --text-muted: #666;
-      --accent-primary: #667eea;
-      --accent-secondary: #764ba2;
-      --shadow-light: rgba(0,0,0,0.08);
-      --shadow-medium: rgba(0,0,0,0.15);
-      --border-color: #e2e8f0;
-    }
-
-    [data-theme="dark"] {
-      --bg-primary: #1a202c;
-      --bg-secondary: #2d3748;
-      --text-primary: #e2e8f0;
-      --text-secondary: #cbd5e0;
-      --text-muted: #a0aec0;
-      --shadow-light: rgba(0,0,0,0.3);
-      --shadow-medium: rgba(0,0,0,0.5);
-      --border-color: #4a5568;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    /* Theme Toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      border-radius: 50px;
-      padding: 10px 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 6px var(--shadow-light);
-      transition: all 0.3s ease;
-    }
-
-    .theme-toggle:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px var(--shadow-medium);
-    }
-
-    .theme-toggle span {
-      font-size: 1.2rem;
-    }
-
-    /* Animated Header */
-    header {
-      text-align: center;
-      padding: 80px 20px 60px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: moveBackground 20s linear infinite;
-    }
-
-    @keyframes moveBackground {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-
-    header img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-      animation: fadeInDown 1s ease;
-      transition: transform 0.3s ease;
-    }
-
-    header img:hover {
-      transform: scale(1.05) rotate(5deg);
-    }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease 0.2s both;
-    }
-
-    header p {
-      font-size: 1.3rem;
-      font-weight: 300;
-      opacity: 0.95;
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease 0.4s both;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .cta-buttons {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease 0.6s both;
-    }
-
-    .cta-btn {
-      padding: 14px 32px;
-      background: white;
-      color: #667eea;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    .cta-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-      background: #f0f0f0;
-    }
-
-    .cta-btn.secondary {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
-    }
-
-    .cta-btn.secondary:hover {
-      background: white;
-      color: #667eea;
-    }
-
-    /* Stats Section */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-      max-width: 1000px;
-      margin: -40px auto 40px;
-      padding: 0 20px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .stat-card {
-      background: var(--bg-secondary);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px var(--shadow-light);
-      text-align: center;
-      transition: all 0.3s ease;
-      animation: fadeInUp 1s ease both;
-    }
-
-    .stat-card:nth-child(1) { animation-delay: 0.1s; }
-    .stat-card:nth-child(2) { animation-delay: 0.2s; }
-    .stat-card:nth-child(3) { animation-delay: 0.3s; }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px var(--shadow-medium);
-    }
-
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      margin-top: 10px;
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-      animation: fadeIn 1s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 30px;
-      color: var(--accent-primary);
-      border-bottom: 3px solid var(--accent-primary);
-      padding-bottom: 10px;
-      display: inline-block;
-      position: relative;
-    }
-
-    section h2::after {
-      content: '';
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 0;
-      height: 3px;
-      background: var(--accent-secondary);
-      transition: width 0.3s ease;
-    }
-
-    section h2:hover::after {
-      width: 100%;
-    }
-
-    .about {
-      background: var(--bg-secondary);
-      margin: 40px auto;
-      padding: 50px 40px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px var(--shadow-light);
-      max-width: 1000px;
-      transition: all 0.3s ease;
-    }
-
-    .about:hover {
-      box-shadow: 0 8px 24px var(--shadow-medium);
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: var(--text-secondary);
-    }
-
-    /* Enhanced Skills Section */
-    .skills {
-      background: var(--bg-secondary);
-      margin: 40px auto;
-      padding: 50px 40px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px var(--shadow-light);
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
-    }
-
-    .skill-category h3 {
-      font-size: 1.3rem;
-      color: var(--text-primary);
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .skill-category h3::before {
-      content: '▸';
-      color: var(--accent-primary);
-      font-size: 1.5rem;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .skill-tag {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 25px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 5px var(--shadow-light);
-      cursor: default;
-    }
-
-    .skill-tag:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Enhanced Projects */
-    .projects {
-      margin: 40px auto;
-    }
-
-    .project {
-      background: var(--bg-secondary);
-      padding: 30px;
-      margin: 25px 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px var(--shadow-light);
-      transition: all 0.3s ease;
-      border-left: 5px solid var(--accent-primary);
-      opacity: 0;
-      animation: slideInLeft 0.6s ease forwards;
-    }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .project:nth-child(2) { animation-delay: 0.1s; }
-    .project:nth-child(3) { animation-delay: 0.2s; }
-    .project:nth-child(4) { animation-delay: 0.3s; }
-    .project:nth-child(5) { animation-delay: 0.4s; }
-    .project:nth-child(6) { animation-delay: 0.5s; }
-
-    .project:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px var(--shadow-medium);
-    }
-
-    .project.featured {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-      border-left: 5px solid var(--accent-secondary);
-      position: relative;
-    }
-
-    [data-theme="dark"] .project.featured {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-    }
-
-    .project.featured::before {
-      content: "⭐ FEATURED";
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      background: var(--accent-secondary);
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .project-media {
-      width: 100%;
-      max-height: 400px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px var(--shadow-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-    }
-
-    .project-media img,
-    .project-media video {
-      width: 100%;
-      height: 100%;
-      max-height: 400px;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .project-media:hover img,
-    .project-media:hover video {
-      transform: scale(1.02);
-    }
-
-    @media (max-width: 768px) {
-      .project-media {
-        max-height: 300px;
-      }
-
-      .project-media img,
-      .project-media video {
-        max-height: 300px;
-      }
-    }
-
-    .project h3 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      color: var(--text-primary);
-      transition: color 0.3s ease;
-    }
-
-    .project:hover h3 {
-      color: var(--accent-primary);
-    }
-
-    .project.featured h3 {
-      color: var(--accent-secondary);
-      font-size: 1.8rem;
-    }
-
-    .project p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      margin-bottom: 15px;
-    }
-
-    .project-links {
-      margin-top: 15px;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .project-links a {
-      padding: 10px 20px;
-      background: var(--accent-primary);
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .project-links a:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px var(--shadow-medium);
-    }
-
-    .project-links a:last-child {
-      background: #48bb78;
-    }
-
-    .project-links a:last-child:hover {
-      background: #38a169;
-    }
-
-    .tech-stack {
-      margin-top: 12px;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .tech-stack span {
-      background: var(--border-color);
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-right: 8px;
-      display: inline-block;
-      margin-top: 5px;
-      transition: all 0.3s ease;
-    }
-
-    .tech-stack span:hover {
-      background: var(--accent-primary);
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    .contact {
-      background: var(--bg-secondary);
-      margin: 40px auto;
-      padding: 50px 40px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px var(--shadow-light);
-      text-align: center;
-    }
-
-    .contact p {
-      font-size: 1.1rem;
-      margin: 15px 0;
-    }
-
-    .contact a {
-      color: var(--accent-primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .contact a:hover {
-      color: var(--accent-secondary);
-      text-decoration: underline;
-    }
-
-    footer {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px 10px;
-      margin-top: 60px;
-    }
-
-    .footer-container {
-      max-width: 1000px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .footer-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-
-    .footer-links a:hover {
-      color: #ffd700;
-      transform: translateY(-2px);
-    }
-
-    /* Scroll Reveal Animation */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-    }
-
-    .scroll-reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
-      .theme-toggle {
-        top: 10px;
-        right: 10px;
-        padding: 8px 16px;
-      }
-
-      header {
-        padding: 60px 20px 40px;
-      }
-
-      header h1 {
-        font-size: 2rem;
-      }
-
-      header p {
-        font-size: 1rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .cta-btn {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-        margin: -30px 20px 30px;
-      }
-
-      section {
-        padding: 40px 15px;
-      }
-
-      section h2 {
-        font-size: 1.8rem;
-      }
-
-      .about, .skills, .contact {
-        padding: 30px 20px;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project {
-        padding: 20px;
-      }
-
-      .project.featured::before {
-        position: static;
-        display: block;
-        margin-bottom: 15px;
-        text-align: center;
-      }
-
-      .project-links {
-        flex-direction: column;
-      }
-
-      .project-links a {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- Theme Toggle -->
@@ -727,17 +47,13 @@
   <section class="about scroll-reveal">
     <h2>About Me</h2>
     <p>
-      <p>
-  Hello! I'm <strong>Eromosele Israel</strong>, a passionate full stack developer with 5+ years of experience crafting innovative web applications and interactive experiences. 
-  I specialize in <strong>Django and Flask</strong> for robust backend systems, and I love pushing the boundaries of web technology with <strong>3D visualizations using Three.js</strong>. 
-  From building scalable recipe management platforms to creating immersive 3D product visualizers, I thrive on turning complex ideas into elegant, user-friendly solutions. 
-  My expertise spans the full development lifecycle—from database design and API development to responsive frontend interfaces and cloud deployment. 
-  I'm driven by the challenge of solving real-world problems with clean code, modern technologies, and a relentless focus on user experience.
-</p>
+      Hello! I'm <strong>Eromosele Israel</strong>, a passionate full stack developer with 5+ years of experience
+      crafting innovative web applications and interactive experiences.
+      I specialize in <strong>Django and Flask</strong> for robust backend systems, and I love pushing the boundaries of
+      web technology with <strong>3D visualizations using Three.js</strong>.
+      From building scalable recipe management platforms to creating immersive 3D product visualizers, I thrive on
     </p>
   </section>
-
-  <!-- Skills -->
   <section class="skills scroll-reveal">
     <h2>Skills & Technologies</h2>
     <div class="skills-grid">
@@ -748,6 +64,9 @@
           <span class="skill-tag">Django</span>
           <span class="skill-tag">Flask</span>
           <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Web Scraping</span>
+          <span class="skill-tag">Automation</span>
+          <span class="skill-tag">Google Sheets API</span>
         </div>
       </div>
       <div class="skill-category">
@@ -773,16 +92,13 @@
           <span class="skill-tag">Cloudinary</span>
           <span class="skill-tag">Render</span>
           <span class="skill-tag">Railway</span>
+          <span class="skill-tag">GitHub Actions</span>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Projects -->
   <section class="projects scroll-reveal" id="projects">
     <h2>Featured Projects</h2>
-
-    <!-- Featured Project 1: iPhone Visualizer -->
     <div class="project featured">
       <div class="project-media">
         <video autoplay loop muted playsinline>
@@ -792,10 +108,16 @@
       </div>
       <h3>📱 iPhone 17 Pro Concept 3D Visualizer</h3>
       <p>
-        An ultra-realistic 3D interactive visualizer showcasing a speculative concept design for the "iPhone 17 Pro" built entirely with Three.js. 
-        Features procedural geometry with no external 3D model files, fully rotatable and zoomable interface, custom color picker with 6 Titanium color options, 
-        realistic PBR materials with environment mapping, detailed geometry including Dynamic Island, camera bar, LiDAR sensor, USB-C port, and side buttons. 
-        Supports both mouse and touch input with auto-rotation and responsive design for seamless experiences across all devices.
+        An ultra-realistic 3D interactive visualizer showcasing a speculative concept design for the "iPhone 17 Pro"
+        built entirely with Three.js.
+        Features procedural geometry with no external 3D model files, fully rotatable and zoomable interface, custom
+        color picker with 6 Titanium color options,
+        realistic PBR materials with environment mapping, detailed geometry including Dynamic Island, camera bar,
+        LiDAR
+        sensor, USB-C port, and side buttons.
+        Supports both mouse and touch input with auto-rotation and responsive design for seamless experiences across
+        all
+        devices.
       </p>
       <div class="tech-stack">
         <span>Three.js (r128)</span>
@@ -811,16 +133,54 @@
       </div>
     </div>
 
-    <!-- Featured Project 2: Recipe Planner -->
+    <!-- Featured Project 2: Daily Email Reporter -->
     <div class="project featured">
+      <div class="project-media gallery">
+        <img src="images/daily-reporter-email.jpg" alt="Email Report Example">
+        <img src="images/daily-reporter-actions.jpg" alt="GitHub Actions Automation">
+        <img src="images/daily-reporter-actions-2.jpg" alt="daily-reporter-actions">
+      </div>
+
+      <h3>📧 Daily Automated Email Reporter</h3>
+      <p>
+        A fully automated daily digest system that aggregates personalized content from multiple sources and delivers
+        custom reports via email.
+        The system runs autonomously via GitHub Actions (zero server costs), fetching real-time weather by city,
+        inspirational quotes, top tech news from Hacker News,
+        GitHub trending repositories, and fun facts. Each recipient receives a personalized report tailored to their
+        location, managed through Google Sheets integration
+        for easy subscriber management. Built with robust error handling and beautiful email formatting, this
+        set-and-forget automation demonstrates the power of
+        Python scripting, API integration, and modern DevOps workflows for practical everyday applications.
+      </p>
+      <div class="tech-stack">
+        <span>Python</span>
+        <span>SMTP (Email)</span>
+        <span>Google Sheets API</span>
+        <span>GitHub Actions</span>
+        <span>BeautifulSoup</span>
+        <span>API Integration</span>
+        <span>Automation</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/romszikey-web/Daily-automated-email-reporter" target="_blank">📂 GitHub
+          Repository</a>
+      </div>
+    </div>
+
+    <!-- Project: Recipe Planner (No longer featured) -->
+    <div class="project">
       <div class="project-media">
         <img src="images/recipe-planner-screenshot.jpg" alt="Smart Recipe Planner Screenshot">
       </div>
       <h3>🍽️ Smart Recipe Planner</h3>
       <p>
-        A full-featured meal planning web application with recipe browsing, pantry inventory tracking, and automated shopping list generation. 
-        Integrates TheMealDB API for access to 1000+ recipes and supports custom recipe uploads with cloud-based image storage. 
-        Features user authentication, CRUD operations for recipes and pantry items, and responsive design for seamless mobile and desktop experiences.
+        A full-featured meal planning web application with recipe browsing, pantry inventory tracking, and automated
+        shopping list generation.
+        Integrates TheMealDB API for access to 1000+ recipes and supports custom recipe uploads with cloud-based image
+        storage.
+        Features user authentication, CRUD operations for recipes and pantry items, and responsive design for seamless
+        mobile and desktop experiences.
       </p>
       <div class="tech-stack">
         <span>Django 5.2.6</span>
@@ -838,7 +198,8 @@
     <div class="project">
       <h3>📝 Notes Manager</h3>
       <p>
-        A clean, intuitive note-taking application built with modern web technologies. Users can create, edit, and delete personal notes with a responsive interface optimized for both desktop and mobile use. 
+        A clean, intuitive note-taking application built with modern web technologies. Users can create, edit, and
+        delete personal notes with a responsive interface optimized for both desktop and mobile use.
         Features include real-time updates and persistent storage for reliable note management.
       </p>
       <div class="tech-stack">
@@ -854,8 +215,10 @@
     <div class="project">
       <h3>✅ Task Manager</h3>
       <p>
-        A comprehensive task management system featuring advanced productivity tools including task filtering, status tracking (active/completed), priority management, and bulk operations. 
-        The application provides an intuitive dashboard for organizing and monitoring task progress with real-time status updates.
+        A comprehensive task management system featuring advanced productivity tools including task filtering, status
+        tracking (active/completed), priority management, and bulk operations.
+        The application provides an intuitive dashboard for organizing and monitoring task progress with real-time
+        status updates.
       </p>
       <div class="tech-stack">
         <span>Flask</span>
@@ -870,7 +233,8 @@
     <div class="project">
       <h3>💰 Expense Tracker</h3>
       <p>
-        A personal finance tracker that allows users to log, categorize, and analyze their monthly expenses with AI-powered insights for better budgeting. 
+        A personal finance tracker that allows users to log, categorize, and analyze their monthly expenses with
+        AI-powered insights for better budgeting.
         Features visual analytics, spending trends, and export capabilities for comprehensive financial management.
       </p>
       <div class="tech-stack">
@@ -951,12 +315,12 @@
 
     // Scroll Reveal Animation
     const revealElements = document.querySelectorAll('.scroll-reveal');
-    
+
     const revealOnScroll = () => {
       revealElements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
         const elementBottom = element.getBoundingClientRect().bottom;
-        
+
         if (elementTop < window.innerHeight * 0.85 && elementBottom > 0) {
           element.classList.add('active');
         }
@@ -971,4 +335,5 @@
   </script>
 
 </body>
+
 </html>
