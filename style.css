@@ -464,7 +464,7 @@
 
     .project-media {
       width: 100%;
-      max-height: 400px;
+      max-height: 1000px;
       border-radius: 8px;
       margin-bottom: 20px;
       overflow: hidden;
@@ -475,7 +475,6 @@
       background: #000;
     }
 
-    .project-media img,
     .project-media video {
       width: 100%;
       height: 100%;
@@ -485,12 +484,21 @@
       transition: transform 0.3s ease;
     }
 
+    .project-media img {
+      width: 100%;
+      height: 1000px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
     .project-media:hover img,
     .project-media:hover video {
       transform: scale(1.02);
     }
 
-    /* Image Gallery for Multiple Screenshots */
+
     .project-media.gallery {
       max-height: none;
       display: grid;
@@ -501,7 +509,7 @@
 
     .project-media.gallery img {
       width: 100%;
-      height: 200px;
+      height: 400px;
       object-fit: cover;
       border-radius: 8px;
       cursor: pointer;
